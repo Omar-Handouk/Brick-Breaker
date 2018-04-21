@@ -150,6 +150,10 @@ public class assemble extends JPanel implements KeyListener, ActionListener {
                 this.moverRight();
 
         }
+        else if (e.getKeyCode() == KeyEvent.VK_F6)
+        {
+            bricks = 1;
+        }
     }
 
     private void moveLeft() {
@@ -181,6 +185,7 @@ public class assemble extends JPanel implements KeyListener, ActionListener {
     private void checkStatus(Graphics2D graphics2D) {
 
         if (ballPosY > 570 && lives != 0) {
+
             play = false;
 
             playerX = 285;
@@ -192,8 +197,10 @@ public class assemble extends JPanel implements KeyListener, ActionListener {
 
             lives -= 1;
         } else if (ballPosY > 570 && lives == 0 || bricks == 0) {
+
+            timer.stop();
+
             play = false;
-            gameOver = true;
 
             playerX = 285;
 
@@ -202,11 +209,18 @@ public class assemble extends JPanel implements KeyListener, ActionListener {
             ballVelX = -0.6 * Math.PI;
             ballVelY = -0.34 * Math.PI;
 
-            int result = JOptionPane.showConfirmDialog(null, "Game over\n Score: " + score + "\nTo continue press OK to exit Press Cancel", "Game Over", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            int result = JOptionPane.showOptionDialog(null, "Game over     Score: " + score, "Game Over", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null,new String[]{"CONTINUE", "EXIT"}, "EXIT");
+            //JOptionPane.showMessageDialog(null, "Game over     Score: " + score + "\nTo continue press OK to exit Press Cancel", "Game Over", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            gameOver = true;
+
+            score = 0;
+            bricks = mapRow * mapCol;
+            lives = 3;
 
             if (result == JOptionPane.OK_OPTION) {
                 gameOver = false;
                 mapGen = new mapGen(mapRow, mapCol);
+                timer.start();
             } else
                 System.exit(0);
         }
