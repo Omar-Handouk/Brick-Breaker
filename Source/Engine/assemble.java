@@ -149,9 +149,7 @@ public class assemble extends JPanel implements KeyListener, ActionListener {
             if (playerX + 30 < 590)
                 this.moverRight();
 
-        }
-        else if (e.getKeyCode() == KeyEvent.VK_F6)
-        {
+        } else if (e.getKeyCode() == KeyEvent.VK_F6) {
             bricks = 1;
         }
     }
@@ -209,7 +207,7 @@ public class assemble extends JPanel implements KeyListener, ActionListener {
             ballVelX = -0.6 * Math.PI;
             ballVelY = -0.34 * Math.PI;
 
-            int result = JOptionPane.showOptionDialog(null, "Game over     Score: " + score, "Game Over", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null,new String[]{"CONTINUE", "EXIT"}, "EXIT");
+            int result = JOptionPane.showOptionDialog(null, "Game over     Score: " + score, "Game Over", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"CONTINUE", "EXIT"}, "EXIT");
             //JOptionPane.showMessageDialog(null, "Game over     Score: " + score + "\nTo continue press OK to exit Press Cancel", "Game Over", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
             gameOver = true;
 
