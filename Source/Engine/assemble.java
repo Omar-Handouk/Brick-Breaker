@@ -29,6 +29,7 @@ public class assemble extends JPanel implements KeyListener, ActionListener {
 
     private double ballPosX = 325;
     private double ballPosY = 500;
+
     private double ballVelX = -0.6 * Math.PI;
     private double ballVelY = -0.34 * Math.PI;
 
@@ -83,7 +84,7 @@ public class assemble extends JPanel implements KeyListener, ActionListener {
         //map
         mapGen.draw(graphics2D);
 
-        this.checkStatus(graphics2D);
+        this.checkStatus();
 
         this.paddle.draw();
         this.ball.draw();
@@ -180,37 +181,21 @@ public class assemble extends JPanel implements KeyListener, ActionListener {
 
     }
 
-    private void checkStatus(Graphics2D graphics2D) {
+    private void checkStatus() {
+
+        this.resetPositions();
 
         if (ballPosY > 570 && lives != 0) {
-
-            play = false;
-
-            playerX = 285;
-
-            ballPosX = 325;
-            ballPosY = 500;
-            ballVelX = -0.6 * Math.PI;
-            ballVelY = -0.34 * Math.PI;
-
             lives -= 1;
         } else if (ballPosY > 570 && lives == 0 || bricks == 0) {
 
             timer.stop();
 
-            play = false;
+            int result =
+                    JOptionPane.showOptionDialog(null, "Game over     Score: " + score, "Game Over",
+                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"CONTINUE", "EXIT"}, "EXIT");
 
-            playerX = 285;
-
-            ballPosX = 325;
-            ballPosY = 500;
-            ballVelX = -0.6 * Math.PI;
-            ballVelY = -0.34 * Math.PI;
-
-            int result = JOptionPane.showOptionDialog(null, "Game over     Score: " + score, "Game Over", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"CONTINUE", "EXIT"}, "EXIT");
-            //JOptionPane.showMessageDialog(null, "Game over     Score: " + score + "\nTo continue press OK to exit Press Cancel", "Game Over", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
             gameOver = true;
-
             score = 0;
             bricks = mapRow * mapCol;
             lives = 3;
@@ -221,6 +206,15 @@ public class assemble extends JPanel implements KeyListener, ActionListener {
                 timer.start();
             } else
                 System.exit(0);
+        }
+    }
+
+    private void resetPositions() {
+        if (ballPosY > 570 && lives != 0 || ballPosY > 570 && lives == 0 || bricks == 0) {
+            play = false;
+            playerX = 285;
+            ballPosX = 325;
+            ballPosY = 500;
         }
     }
 }
